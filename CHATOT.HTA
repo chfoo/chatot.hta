@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<HTML>
+    <HEAD>
+        <HTA:APPLICATION 
+        CAPTION="yes"
+        ICON="CHATOT.ICO"
+        MAXIMIZEBUTTON="no"
+        MINIMIZEBUTTON="no"
+        />
+        <TITLE>CHATOT</TITLE>
+        <STYLE>
+            html, body {
+                margin: 4px;
+                padding: 0px;
+                color: ButtonText;
+                background-color: ThreeDFace;
+                overflow: hidden;
+            }
+            #container {
+                display: inline;
+            }
+        </STYLE>
+    </HEAD>
+    <BODY>
+        <DIV ID="container">
+            <IMG ID="chatotImg" SRC="CHATOT.GIF" WIDTH="84">
+            <BR>
+            I like Chatot.
+        </DIV>
+        <SCRIPT>
+            var delta = 16;
+            var deltaX = delta;
+            var deltaY = delta;
+            var container = document.getElementById("container");
+            var chatotImg = document.getElementById("chatotImg");
+
+            function resize() {
+                window.resizeTo(500, 500);
+                var decoratorX = 500 - document.body.clientWidth;
+                var decoratorY = 500 - document.body.clientHeight;
+                window.resizeTo(container.offsetWidth + decoratorX + 4, container.offsetHeight + decoratorY + 4);
+            }
+
+            function move() {
+                if (window.screenLeft + document.body.clientWidth >= screen.width) {
+                    deltaX = -delta;
+                    chatotImg.style.filter = "";
+                } else if (window.screenLeft <= 0) {
+                    deltaX = delta;
+                    chatotImg.style.filter = "fliph";
+                }
+                if (window.screenTop + document.body.clientHeight >= screen.height) {
+                    deltaY = -delta;
+                } else if (window.screenTop <= 0) {
+                    deltaY = delta;
+                }
+                
+                window.moveBy(deltaX, deltaY);
+                setTimeout(move, 500);
+            }
+
+            chatotImg.style.filter = "fliph";
+            document.body.oncontextmenu = function() { return false; }
+            resize();
+            window.moveTo(Math.random() * screen.width * 0.8, Math.random() * screen.height * 0.8);
+            move();
+        </SCRIPT>
+    </BODY>
+</HTML>
+
